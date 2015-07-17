@@ -1,1 +1,105 @@
-hello world
+<html>
+
+<head>
+	<title>My First Webpage</title>
+
+	<script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+	<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+
+
+
+	<style>
+
+		body{
+			background-color: #61F7FF;
+		}
+
+		h1{
+			text-align: center;
+			margin-top: 50px;
+			color: black;
+			font-family: Impact, Haettenschweiler, 'Franklin Gothic Bold', Charcoal, 'Helvetica Inserat', 'Bitstream Vera Sans Bold', 'Arial Black', 'sans serif';
+		}
+
+		textarea{
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+			width: 400px;
+			height: 50px;
+			outline: none;
+			border-radius: 0px;
+			font-family: Impact, Haettenschweiler, 'Franklin Gothic Bold', Charcoal, 'Helvetica Inserat', 'Bitstream Vera Sans Bold', 'Arial Black', 'sans serif';
+			color: black;
+			resize: none;
+			text-align: center;
+		}
+
+		button{
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+			margin-top: 20px;
+			width: 200px;
+			height: 50px;
+			border-radius: 5px;
+			outline: none;
+			background-color: #31F500;
+			border-color: #22A800;
+			color: #1439DE;
+			font-size: 15px;
+			font-family: Impact, Haettenschweiler, 'Franklin Gothic Bold', Charcoal, 'Helvetica Inserat', 'Bitstream Vera Sans Bold', 'Arial Black', 'sans serif';
+		}
+
+	</style>
+</head>
+
+<body>
+
+	<h1>Type a Compliment</h1>
+	<textarea placeholder = "Type A Compliment"></textarea>
+	<button>
+		<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+		Send Compliment!
+		<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+	</button>
+
+</body>
+
+
+<script>
+
+	firebase = new Firebase("https://icomplimentnow.firebaseio.com/");
+
+	firebase.remove();
+
+	firebase.on('child_added', onMessage);
+
+	$('button').click(whenClicked);
+
+	function whenClicked() {
+		var text; 
+		text = $('textarea').val();
+		firebase.push(text);
+		$('textarea').val("Thanks for the Compliment");
+	}
+
+	function onMessage(message){
+		$('h1').text(message.val()):
+	}
+
+
+</script>
+
+</html>
